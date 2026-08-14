@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/RedBolt/Build/">
+    <Project Path="src/RedBolt/Build/RedBolt.2D.Build.csproj" />
+  </Folder>
+  <Folder Name="/src/RedBolt/">
+    <Project Path="src/RedBolt/2D/RedBolt.2D.csproj"><Build Project="false" /></Project>
+  </Folder>
+  <Folder Name="/src/RedBolt/Sample/">
+    <Project Path="src/RedBolt/Sample/Urho2DParticle/RedBolt.Sample.Urho2DParticle.csproj"><Build Project="false" /></Project>
+    <Project Path="src/RedBolt/Sample/Urho2DSprite/RedBolt.Sample.Urho2DSprite.csproj"><Build Project="false" /></Project>
+    <Project Path="src/RedBolt/Sample/Urho2DSpriterAnimation/RedBolt.Sample.Urho2DSpriterAnimation.csproj"><Build Project="false" /></Project>
+    <Project Path="src/RedBolt/Sample/Urho2DStretchableSprite/RedBolt.Sample.Urho2DStretchableSprite.csproj"><Build Project="false" /></Project>
+    <Project Path="src/RedBolt/Sample/Urho2DTileMap/RedBolt.Sample.Urho2DTileMap.csproj"><Build Project="false" /></Project>
+    <Project Path="src/RedBolt/Sample/Web/RedBolt.Sample.Web.csproj"><Build Project="false" /></Project>
+    <Project Path="src/RedBolt/Sample/Android/RedBolt.Sample.Android.csproj"><Build Project="false" /></Project>
+  </Folder>
+</Solution>

@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <RedBolt2DRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory).'))</RedBolt2DRoot>
+    <RedBoltRoot Condition="'$(RedBoltRoot)' == ''">$([System.IO.Path]::GetFullPath('$(RedBolt2DRoot)/../RedBolt'))</RedBoltRoot>
+  </PropertyGroup>
+  <Import Project="$(RedBoltRoot)/Directory.Solution.props" />
+  <PropertyGroup>
+    <RedBoltTraversalProject>$(RedBolt2DRoot)/src/RedBolt/Build/RedBolt.2D.Build.csproj</RedBoltTraversalProject>
+    <RedBoltSolutionBuildRoot>$(RedBolt2DRoot)/build</RedBoltSolutionBuildRoot>
+    <RedBoltBuildConfigPath>$(RedBolt2DRoot)/build/BuildConfig.props</RedBoltBuildConfigPath>
+  </PropertyGroup>
+</Project>
