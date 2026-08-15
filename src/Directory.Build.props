@@ -9,7 +9,7 @@
     <RedBoltExternalHasNative>false</RedBoltExternalHasNative>
     <RedBoltExternalDesktopResourceRoot>$(RedBolt2DRoot)</RedBoltExternalDesktopResourceRoot>
   </PropertyGroup>
-  <Import Project="$(RedBoltRoot)/src/RedBolt/ExternalModule/Directory.Build.props" />
+  <Import Project="$(RedBoltRoot)/src/RedBolt/Build/Directory.Build.props" />
   <PropertyGroup>
     <RedBoltExternalModuleEnabled>$(RedBolt2DEnabled)</RedBoltExternalModuleEnabled>
     <RedBoltExternalModuleBuildProperties>RedBolt2DEnabled=$(RedBolt2DEnabled)</RedBoltExternalModuleBuildProperties>
