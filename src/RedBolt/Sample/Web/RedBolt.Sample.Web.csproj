@@ -26,6 +26,7 @@
   </PropertyGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="$(AssemblyName)" />
+    <TrimmerRootAssembly Include="SharpCpp.Std" />
     <NativeFileReference Include="$(RedBoltWebEngineArchive)" />
     <ProjectReference Include="$(RedBoltRoot)/src/RedBolt/Core/RedBolt.Core.csproj" />
     <ProjectReference Include="../../2D/RedBolt.2D.csproj" />
@@ -37,6 +38,8 @@
     <Compile Include="../Urho2DParticle/**/*.cs;../Urho2DSprite/**/*.cs;../Urho2DSpriterAnimation/**/*.cs;../Urho2DStretchableSprite/**/*.cs;../Urho2DTileMap/**/*.cs"
              Link="Samples/%(RecursiveDir)%(Filename)%(Extension)" />
     <ProjectReference Include="$(RedBoltSharpCppRoot)/src/SharpCpp.Support/SharpCpp.Support.csproj"
+                      PrivateAssets="all" AdditionalProperties="$(RedBoltSharpCppManagedProperties)" />
+    <ProjectReference Include="$(RedBoltSharpCppRoot)/src/SharpCpp.Std/SharpCpp.Std.csproj"
                       PrivateAssets="all" AdditionalProperties="$(RedBoltSharpCppManagedProperties)" />
   </ItemGroup>
   <ItemGroup>
