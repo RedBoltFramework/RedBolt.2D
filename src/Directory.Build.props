@@ -10,7 +10,6 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
     <RedBoltRoot Condition="'$(RedBoltRoot)' == ''">$([System.IO.Path]::GetFullPath('$(RedBolt2DRoot)/../RedBolt'))</RedBoltRoot>
     <RedBoltExternalModuleRoot>$(RedBolt2DRoot)</RedBoltExternalModuleRoot>
     <RedBoltExternalModuleName>RedBolt.2D</RedBoltExternalModuleName>
-    <RedBoltExternalBuildProjectName>RedBolt.2D.Build</RedBoltExternalBuildProjectName>
     <RedBoltExternalModuleProjectNames>RedBolt.2D</RedBoltExternalModuleProjectNames>
     <RedBoltExternalHasNative>false</RedBoltExternalHasNative>
     <RedBoltExternalDesktopResourceRoot>$(RedBolt2DRoot)</RedBoltExternalDesktopResourceRoot>
@@ -18,6 +17,5 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
   <Import Project="$(RedBoltRoot)/src/RedBolt/Build/Directory.Build.props" />
   <PropertyGroup>
     <RedBoltExternalModuleEnabled>$(RedBolt2DEnabled)</RedBoltExternalModuleEnabled>
-    <RedBoltExternalModuleBuildProperties>RedBolt2DEnabled=$(RedBolt2DEnabled)</RedBoltExternalModuleBuildProperties>
   </PropertyGroup>
 </Project>
