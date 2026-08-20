@@ -5,11 +5,16 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
 -->
 
 <Project>
+  <!--
+    Module solution entry point. Resolves this module's root and locates the core RedBolt repository,
+    declares itself as an external module, and chains into the core solution props so this module's
+    solution participates in the shared build layout.
+  -->
   <PropertyGroup>
     <RedBolt2DRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory).'))</RedBolt2DRoot>
     <RedBoltRoot Condition="'$(RedBoltRoot)' == ''">$([System.IO.Path]::GetFullPath('$(RedBolt2DRoot)/../RedBolt'))</RedBoltRoot>
     <RedBoltExternalModuleRoot>$(RedBolt2DRoot)</RedBoltExternalModuleRoot>
     <RedBoltExternalModuleName>RedBolt.2D</RedBoltExternalModuleName>
   </PropertyGroup>
-  <Import Project="$(RedBoltRoot)/src/RedBolt/Build/Directory.Solution.props" />
+  <Import Project="$(RedBoltRoot)/eng/RedBolt.ModuleBuild/Directory.Solution.props" />
 </Project>
