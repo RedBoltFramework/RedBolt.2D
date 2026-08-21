@@ -7,10 +7,10 @@
     "src/RedBolt/2D/RedBolt.2D.csproj"
   ],
   "coreData": [
-    "bin/CoreData/**/*"
+    "bin/CoreData.2D/**/*"
   ],
   "data": [
-    "bin/Data/**/*"
+    "bin/Data.2D/**/*"
   ],
   "samples": [
     { "id": "urho2d-sprite", "name": "Urho2D Sprite", "applicationType": "RedBolt.Sample.Urho2DSprite.Urho2DSprite", "source": "Urho2DSprite" },

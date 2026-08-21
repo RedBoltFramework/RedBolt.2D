@@ -21,8 +21,8 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
     <Compile Include="../Urho2DSpriterAnimation/**/*.cs" Link="Samples/RedBolt2D/Urho2DSpriterAnimation/%(RecursiveDir)%(Filename)%(Extension)" />
     <Compile Include="../Urho2DTileMap/**/*.cs" Link="Samples/RedBolt2D/Urho2DTileMap/%(RecursiveDir)%(Filename)%(Extension)" />
     <Compile Include="../Urho2DStretchableSprite/**/*.cs" Link="Samples/RedBolt2D/Urho2DStretchableSprite/%(RecursiveDir)%(Filename)%(Extension)" />
-    <AndroidAsset Include="../../../../bin/CoreData/**/*" Link="CoreData/%(RecursiveDir)%(Filename)%(Extension)" />
-    <AndroidAsset Include="../../../../bin/Data/**/*" Link="Data/%(RecursiveDir)%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../../../bin/CoreData.2D/**/*" Link="CoreData/%(RecursiveDir)%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../../../bin/Data.2D/**/*" Link="Data/%(RecursiveDir)%(Filename)%(Extension)" />
     <!-- </redbolt-generated name="android-project-items"> -->
   </ItemGroup>
   <!-- <redbolt-generated name="android-project-import"> -->
