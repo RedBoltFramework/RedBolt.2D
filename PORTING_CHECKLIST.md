@@ -10,8 +10,8 @@ This inventory moved from the base RedBolt repository when the optional 2D modul
   - [ ] Urho2D event definitions
 - [ ] `Sprite2D.h`
   - [ ] `Sprite2D : Resource`
-- [ ] `SpriteSheet2D.h`
-  - [ ] `SpriteSheet2D : Resource`
+- [x] `SpriteSheet2D.h`
+  - [x] `SpriteSheet2D : Resource`
 - [ ] `Drawable2D.h`
   - [ ] `Drawable2D : Drawable`
 - [ ] `StaticSprite2D.h`

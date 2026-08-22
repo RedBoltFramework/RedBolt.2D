@@ -59,11 +59,11 @@ public partial class SpriteSheet2D : Resource
         SetMemoryUse(checked((int)source.Size));
         var root = _loadXmlFile.GetRoot("TextureAtlas");
         if (!root.NotNull)
-            return false;
-        var parent = Path.GetDirectoryName(Name)?.Replace('\\', '/') ?? string.Empty;
-        _loadTextureName = string.IsNullOrEmpty(parent)
-            ? root.GetAttribute("imagePath")
-            : $"{parent}/{root.GetAttribute("imagePath")}";
+            return FinishXml(false);
+        var imagePath = root.GetAttribute("imagePath");
+        if (string.IsNullOrEmpty(imagePath))
+            return FinishXml(false);
+        _loadTextureName = ParentPath(Name) + imagePath.Replace('\\', '/');
         if (AsyncLoadState == AsyncLoadState.Loading)
             GetSubsystem<ResourceCache>()?.BackgroundLoadResource<Texture2D>(_loadTextureName, true, this);
         return true;
@@ -80,7 +80,7 @@ public partial class SpriteSheet2D : Resource
         var cache = GetSubsystem<ResourceCache>();
         _texture = cache?.GetResource<Texture2D>(_loadTextureName);
         if (_texture is null)
-            return false;
+            return FinishXml(false);
         var root = _loadXmlFile.GetRoot("TextureAtlas");
         for (var element = root.GetChild("SubTexture"); element.NotNull; element = element.GetNext("SubTexture"))
         {
@@ -88,6 +88,8 @@ public partial class SpriteSheet2D : Resource
             var y = element.GetInt("y");
             var width = element.GetInt("width");
             var height = element.GetInt("height");
+            if (width <= 0 || height <= 0)
+                continue;
             var offset = Vector2i.Zero;
             var hotSpot = new Vector2f(0.5f, 0.5f);
             if (element.HasAttribute("frameWidth") && element.HasAttribute("frameHeight"))
@@ -98,10 +100,7 @@ public partial class SpriteSheet2D : Resource
             }
             DefineSprite(element.GetAttribute("name"), new IntRect(x, y, x + width, y + height), hotSpot, offset);
         }
-        _loadXmlFile.Dispose();
-        _loadXmlFile = null;
-        _loadTextureName = string.Empty;
-        return true;
+        return FinishXml(true);
     }
 
     public override bool Save(Serializer destination)
@@ -263,9 +262,18 @@ public partial class SpriteSheet2D : Resource
         return result;
     }
 
+    private bool FinishXml(bool result)
+    {
+        _loadXmlFile?.Dispose();
+        _loadXmlFile = null;
+        _loadTextureName = string.Empty;
+        return result;
+    }
+
     private static string ParentPath(string name)
     {
-        var parent = Path.GetDirectoryName(name)?.Replace('\\', '/') ?? string.Empty;
-        return string.IsNullOrEmpty(parent) ? string.Empty : parent + "/";
+        var normalized = name.Replace('\\', '/');
+        var separator = normalized.LastIndexOf('/');
+        return separator < 0 ? string.Empty : normalized[..(separator + 1)];
     }
 }
