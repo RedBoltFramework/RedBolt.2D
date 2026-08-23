@@ -38,7 +38,7 @@ public sealed class Urho2DSprite : Application
         parameters.ApplicationName = "RedBolt.Sample.Urho2DSprite";
         parameters.Borderless = false;
         parameters.FullScreen = false;
-        parameters.ResourcePaths = "CoreData.2D;Data.2D;CoreData;Data";
+        parameters.ResourcePaths = "CoreData.2D;SampleData.2D;CoreData;SampleData";
         parameters.ResourcePrefixPaths = ".;..";
         parameters.WindowMaximize = false;
 #if !REDBOLT_PLATFORM_BROWSER

@@ -14,7 +14,7 @@ The command writes independently versioned packages below `build/package/nuget/o
 
 - `RedBolt.2D`
 - `RedBolt.2D.CoreData`
-- `RedBolt.2D.Data`
+- `RedBolt.2D.SampleData`
 
 Validate package contents, exact dependency versions, and a package-only consumer with:
 

@@ -17,7 +17,7 @@ return ExternalModulePackager.Run(args, new ExternalModulePackageManifest
     ResourcePackages =
     [
         new("RedBolt.2D.CoreData", "CoreData.2D", "bin/CoreData.2D"),
-        new("RedBolt.2D.Data", "Data.2D", "bin/Data.2D")
+        new("RedBolt.2D.SampleData", "SampleData.2D", "bin/SampleData.2D")
     ],
     ManagedPackages =
     [
@@ -28,7 +28,7 @@ return ExternalModulePackager.Run(args, new ExternalModulePackageManifest
             [
                 new("RedBolt.Core", PackageVersions.RedBolt),
                 new("RedBolt.2D.CoreData", PackageVersions.Module),
-                new("RedBolt.2D.Data", PackageVersions.Module)
+                new("RedBolt.2D.SampleData", PackageVersions.Module)
             ])
     ],
     Consumer = new(
