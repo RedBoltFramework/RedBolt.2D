@@ -25,11 +25,12 @@ internal static class Urho2DSpriteProgram
     }
 }
 
-/// <summary>Demonstrates static and Spriter-animated 2D sprites.</summary>
+/// <summary>Demonstrates a small aquarium built from atlas sprites.</summary>
 public sealed class Urho2DSprite : Application
 {
-    private const int NumSprites = 200;
-    private readonly List<(Node Node, Vector2f MoveSpeed, float RotateSpeed)> _sprites = [];
+    private const int NumFish = 80;
+    private readonly List<(Node Node, StaticSprite2D Sprite, Vector2f MoveSpeed)> _sprites = [];
+    private readonly List<(Node Node, Vector2f MoveSpeed)> _bubbles = [];
     private Node? _cameraNode;
 
     protected override void Setup(EngineParameters parameters)
@@ -58,29 +59,61 @@ public sealed class Urho2DSprite : Application
         camera.SetOrthographic(true);
         camera.OrthoSize = Graphics.Height * Sprite2D.PixelSize;
 
-        if (Resources.Get<Sprite2D>("Urho2D/Aster.png") is { } sprite)
+        var fishSheet = Resources.Get<SpriteSheet2D>("Urho2D/Fish/spritesheet.xml");
+        if (fishSheet is not null)
         {
+            // Atlas entries touch each other, so keep bilinear filtering inside each 64px cell.
+            foreach (var sprite in fishSheet.SpriteMapping.Values)
+                sprite.TextureEdgeOffset = 1.0f;
+
             var halfWidth = Graphics.Width * 0.5f * Sprite2D.PixelSize;
             var halfHeight = Graphics.Height * 0.5f * Sprite2D.PixelSize;
-            for (var i = 0; i < NumSprites; ++i)
-            {
-                var node = scene.CreateChild("StaticSprite2D");
-                node.SetPosition2D(MathDefs.Random(-halfWidth, halfWidth), MathDefs.Random(-halfHeight, halfHeight));
-                var drawable = node.CreateComponent<StaticSprite2D>();
-                drawable.Sprite = sprite;
-                drawable.Color = new Color(MathDefs.Random(), MathDefs.Random(), MathDefs.Random());
-                _sprites.Add((node, new Vector2f(MathDefs.Random(-2.0f, 2.0f), MathDefs.Random(-2.0f, 2.0f)),
-                    MathDefs.Random(-90.0f, 90.0f)));
-            }
-        }
 
-        if (Resources.Get<AnimationSet2D>("Urho2D/GoldIcon.scml") is { } animationSet)
-        {
-            var node = scene.CreateChild("AnimatedSprite2D");
-            node.SetPosition(new Vector3f(0.0f, 0.0f, -1.0f));
-            var animatedSprite = node.CreateComponent<AnimatedSprite2D>();
-            animatedSprite.AnimationSet = animationSet;
-            animatedSprite.SetAnimation("idle");
+            // Tile the blue water, then add a sandy floor and a water-surface edge.
+            for (var x = -halfWidth + 0.32f; x < halfWidth; x += 0.64f)
+            {
+                for (var y = -halfHeight + 0.32f; y < halfHeight; y += 0.64f)
+                    AddSprite(scene, fishSheet, "background_terrain", new Vector2f(x, y), -10);
+                AddSprite(scene, fishSheet, "background_terrain_top", new Vector2f(x, halfHeight - 0.32f), -9);
+                AddSprite(scene, fishSheet, "terrain_sand_a", new Vector2f(x, -halfHeight + 0.32f), -8);
+                AddSprite(scene, fishSheet, "terrain_sand_top_a", new Vector2f(x, -halfHeight + 0.96f), -8);
+            }
+
+            var plants = new[] { "seaweed_green_a", "seaweed_green_b", "seaweed_orange_a", "seaweed_pink_a" };
+            for (var i = 0; i < 12; ++i)
+            {
+                var x = -halfWidth + 0.5f + i * (Graphics.Width * Sprite2D.PixelSize / 12.0f);
+                AddSprite(scene, fishSheet, plants[i % plants.Length], new Vector2f(x, -halfHeight + 1.25f), -6);
+            }
+
+            var rocks = new[] { "rock_a", "rock_b" };
+            for (var i = 0; i < 6; ++i)
+            {
+                var x = -halfWidth + 0.8f + i * (Graphics.Width * Sprite2D.PixelSize / 6.0f);
+                AddSprite(scene, fishSheet, rocks[i % rocks.Length], new Vector2f(x, -halfHeight + 0.9f), -5);
+            }
+
+            var bubbles = new[] { "bubble_a", "bubble_b", "bubble_c" };
+            for (var i = 0; i < 18; ++i)
+            {
+                var x = MathDefs.Random(-halfWidth + 0.5f, halfWidth - 0.5f);
+                var y = MathDefs.Random(-halfHeight + 1.6f, halfHeight - 0.5f);
+                var node = AddSprite(scene, fishSheet, bubbles[i % bubbles.Length], new Vector2f(x, y), 1, 0.65f);
+                if (node is not null)
+                    _bubbles.Add((node, new Vector2f(MathDefs.Random(-0.08f, 0.08f), MathDefs.Random(0.25f, 0.55f))));
+            }
+
+            var fish = new[] { "fish_blue", "fish_green", "fish_orange", "fish_pink", "fish_red", "fish_brown" };
+            for (var i = 0; i < NumFish; ++i)
+            {
+                var node = scene.CreateChild("Fish");
+                node.SetPosition2D(MathDefs.Random(-halfWidth, halfWidth), MathDefs.Random(-halfHeight + 1.7f, halfHeight - 0.8f));
+                var drawable = node.CreateComponent<StaticSprite2D>();
+                drawable.Sprite = fishSheet.GetSprite(fish[i % fish.Length]);
+                var speed = new Vector2f(MathDefs.Random(0.35f, 1.2f) * (i % 2 == 0 ? 1.0f : -1.0f), MathDefs.Random(-0.12f, 0.12f));
+                drawable.FlipX = speed.X < 0.0f;
+                _sprites.Add((node, drawable, speed));
+            }
         }
 
         Renderer.SetViewport(0, new Viewport(scene, camera));
@@ -94,17 +127,44 @@ public sealed class Urho2DSprite : Application
         MoveCamera(timeStep);
         var halfWidth = Graphics.Width * 0.5f * Sprite2D.PixelSize;
         var halfHeight = Graphics.Height * 0.5f * Sprite2D.PixelSize;
+        for (var i = 0; i < _bubbles.Count; ++i)
+        {
+            var entry = _bubbles[i];
+            var position = entry.Node.GetPosition2D() + entry.MoveSpeed * timeStep;
+            if (position.Y > halfHeight - 0.5f)
+            {
+                position.X = MathDefs.Random(-halfWidth + 0.5f, halfWidth - 0.5f);
+                position.Y = -halfHeight + 1.6f;
+            }
+            entry.Node.SetPosition2D(position);
+            _bubbles[i] = entry;
+        }
+
         for (var i = 0; i < _sprites.Count; ++i)
         {
             var entry = _sprites[i];
             var position = entry.Node.GetPosition2D() + entry.MoveSpeed * timeStep;
             var speed = entry.MoveSpeed;
             if (position.X < -halfWidth || position.X > halfWidth) speed.X = -speed.X;
-            if (position.Y < -halfHeight || position.Y > halfHeight) speed.Y = -speed.Y;
+            if (position.Y < -halfHeight + 1.7f || position.Y > halfHeight - 0.8f) speed.Y = -speed.Y;
             entry.Node.SetPosition2D(position);
-            entry.Node.Rotate2D(entry.RotateSpeed * timeStep);
-            _sprites[i] = (entry.Node, speed, entry.RotateSpeed);
+            entry.Sprite.FlipX = speed.X < 0.0f;
+            _sprites[i] = (entry.Node, entry.Sprite, speed);
         }
+    }
+
+    private static Node? AddSprite(Scene scene, SpriteSheet2D sheet, string name, Vector2f position, int layer, float scale = 1.0f)
+    {
+        if (sheet.GetSprite(name) is not { } sprite)
+            return null;
+        var node = scene.CreateChild(name);
+        node.SetPosition2D(position);
+        if (scale != 1.0f)
+            node.SetScale2D(new Vector2f(scale, scale));
+        var drawable = node.CreateComponent<StaticSprite2D>();
+        drawable.Sprite = sprite;
+        drawable.Layer = layer;
+        return node;
     }
 
     private void MoveCamera(float timeStep)

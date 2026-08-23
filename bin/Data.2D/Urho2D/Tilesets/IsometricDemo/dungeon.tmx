@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="256" tileheight="128" infinite="0" backgroundcolor="#d8b58f" nextlayerid="7" nextobjectid="84">
+ <properties>
+  <property name="Story" value="The keepers sealed the reliquary after miners breached the lower vault; their last feast became a barricade while the quartermaster prepared an evacuation."/>
+  <property name="Title" value="The Sealed Reliquary"/>
+ </properties>
+ <tileset firstgid="1" source="dungeon.tsx"/>
+ <layer id="1" name="Floor" width="20" height="20">
+  <properties>
+   <property name="DepthSorted" value="false"/>
+  </properties>
+  <data encoding="csv">
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,18,2,2,2,2,2,2,2,22,2,2,2,2,2,2,
+2,2,22,22,2,2,2,2,2,2,2,2,2,2,18,2,2,22,2,2,
+2,2,2,22,22,2,2,2,2,2,2,2,2,2,2,18,2,2,2,2,
+2,2,18,2,22,2,2,2,2,2,2,2,2,2,18,2,18,2,2,2,
+2,2,2,2,22,2,18,2,2,2,2,2,2,22,2,2,18,2,2,2,
+2,2,2,2,22,2,2,2,2,2,2,2,2,2,18,2,2,18,2,2,
+2,2,2,2,2,2,2,2,6,2,6,2,2,22,2,2,18,2,2,2,
+2,2,2,2,2,2,2,2,2,6,6,6,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,6,2,6,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,6,6,6,2,2,2,2,2,2,2,2,
+2,14,14,10,14,14,22,14,14,2,6,6,6,6,6,6,2,2,2,2,
+2,14,10,14,14,10,22,14,10,2,2,2,2,6,6,6,6,6,6,2,
+2,10,14,14,10,14,22,10,14,2,2,2,2,6,30,2,2,30,6,2,
+2,14,14,10,14,14,22,14,14,2,2,2,2,6,2,2,2,2,6,2,
+2,14,10,14,14,10,22,14,10,2,2,2,2,6,2,30,30,2,6,2,
+2,10,14,14,10,14,22,10,14,2,2,2,2,6,30,2,2,30,6,2,
+2,14,14,10,14,14,10,14,14,2,2,2,2,6,6,6,6,6,6,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <layer id="2" name="Walls" width="20" height="20">
+  <data encoding="csv">
+99,59,59,167,59,59,59,59,167,59,59,59,59,59,167,59,59,59,59,100,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+138,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+98,57,81,137,85,89,57,57,57,57,89,57,57,57,57,57,89,57,57,97
+</data>
+ </layer>
+ <layer id="3" name="RoomWalls" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,60,0,0,0,58,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,64,0,0,0,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,64,0,0,0,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,64,0,0,0,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,64,0,0,0,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,116,0,0,0,74,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,64,0,0,0,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,64,0,0,0,62,0,0,0,0,0,0,0,0,
+57,61,61,61,113,61,61,97,0,0,0,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,98,61,61,61,73,61,61,61,57,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+59,63,63,63,63,63,119,139,63,100,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,64,0,0,99,59,59,131,59,59,59,59,
+0,0,0,0,0,0,0,0,0,64,0,0,58,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,64,0,0,166,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,80,0,0,58,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,64,0,0,114,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,64,0,0,122,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,64,0,0,58,0,0,0,0,0,0,0,
+0,0,0,0,0,121,57,57,57,97,57,57,98,57,57,57,57,57,57,57
+</data>
+ </layer>
+ <layer id="4" name="Props" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,234,250,0,230,0,0,0,0,0,0,0,0,242,0,0,246,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,282,0,0,272,0,0,0,
+0,0,246,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,232,0,
+0,0,0,0,0,266,264,0,0,0,0,0,0,263,0,286,0,261,0,0,
+0,0,214,230,0,0,216,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,238,0,0,0,0,0,0,0,0,238,0,288,0,244,0,0,
+0,0,0,0,0,0,0,0,0,0,254,0,0,0,0,0,0,262,0,0,
+0,0,0,0,0,0,0,0,206,242,0,208,0,0,0,0,0,0,0,97,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,
+0,0,0,0,0,0,0,0,206,0,0,208,0,0,0,0,0,0,0,60,
+0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,100,
+0,0,214,0,230,0,198,216,0,0,0,0,0,0,0,178,0,0,0,60,
+0,0,0,218,0,0,202,0,212,0,0,0,0,206,0,266,0,208,0,60,
+0,0,0,0,0,0,190,0,0,0,0,0,0,0,262,0,264,0,0,60,
+0,0,238,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,248,60,
+0,0,0,234,0,242,0,216,0,0,0,0,0,206,0,254,256,208,0,60,
+0,0,238,0,0,0,0,0,0,0,0,0,0,0,0,234,0,0,0,60,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,97
+</data>
+ </layer>
+ <objectgroup id="5" name="Physics">
+  <object id="1" name="NorthBoundary" x="0" y="0" width="2560" height="32"/>
+  <object id="2" name="SouthBoundary" x="0" y="2527.41" width="2560" height="32"/>
+  <object id="3" name="WestBoundary" x="0" y="0" width="32" height="2560"/>
+  <object id="4" name="EastBoundary" x="2528.73" y="1.317" width="32" height="2560"/>
+  <object id="5" name="QuartermasterEastNorth" x="994.705" y="3.54326" width="32" height="644.358"/>
+  <object id="6" name="QuartermasterEastSouth" x="988.778" y="731.783" width="32" height="406.138"/>
+  <object id="7" name="QuartermasterSouthWest" x="0.909259" y="1118.75" width="525.577" height="32"/>
+  <object id="8" name="QuartermasterSouthEast" x="606.417" y="1112.17" width="411.657" height="32"/>
+  <object id="9" name="FeastWestNorth" x="1408" y="10.1283" width="32" height="629.872"/>
+  <object id="10" name="FeastWestSouth" x="1408" y="768" width="32" height="512"/>
+  <object id="11" name="FeastSouthWest" x="1411.29" y="1249.39" width="512" height="32"/>
+  <object id="12" name="FeastSouthEast" x="2025.61" y="1243.46" width="532.821" height="32"/>
+  <object id="13" name="WorksNorthWest" x="0.909259" y="1408" width="774.334" height="32"/>
+  <object id="15" name="WorksEastNorth" x="1240.83" y="1406.68" width="32" height="1152.06"/>
+  <object id="17" name="ReliquaryNorthWest" x="1536" y="1536" width="384" height="32"/>
+  <object id="18" name="ReliquaryNorthEast" x="2025.61" y="1535.07" width="535.455" height="33.8658"/>
+  <object id="19" name="ReliquaryWestNorth" x="1536" y="1536" width="32" height="512"/>
+  <object id="20" name="ReliquaryWestSouth" x="1533.86" y="2141.76" width="36.2803" height="406.797"/>
+  <object id="21" name="woodenCrates_E_2_2" type="Inventory stacks" x="256" y="256">
+   <polygon points="12,42 51,18 110,30 119,82 88,114 32,112 10,78"/>
+  </object>
+  <object id="22" name="barrelsStacked_E_3_2" type="Lamp oil reserve" x="384" y="256">
+   <polygon points="12,48 39,17 91,20 118,53 110,97 70,119 25,103"/>
+  </object>
+  <object id="23" name="woodenCrate_E_5_2" type="Sealed provisions" x="640" y="256">
+   <polygon points="20,40 61,18 108,40 108,96 62,116 18,92"/>
+  </object>
+  <object id="24" name="barrels_E_2_4" type="Water reserve" x="256" y="512">
+   <polygon points="15,46 42,21 91,22 114,53 106,96 65,115 22,101"/>
+  </object>
+  <object id="25" name="chestOpen_E_5_4" type="Abandoned pay chest" x="640" y="512">
+   <polygon points="19,48 58,18 109,35 113,88 70,114 23,99"/>
+  </object>
+  <object id="26" name="tableShort_E_5_5" type="Quartermaster ledger desk" x="640" y="640">
+   <polygon points="15,49 55,22 111,43 112,87 69,112 20,95"/>
+  </object>
+  <object id="27" name="chair_W_6_5" type="Quartermaster chair" x="768" y="640">
+   <polygon points="37,47 63,29 91,45 94,89 68,108 39,91"/>
+  </object>
+  <object id="28" name="woodenSupports_E_2_6_foot1" type="West storage rack" x="256" y="768">
+   <polygon points="18,48 35,38 45,48 43,102 27,113 17,98"/>
+  </object>
+  <object id="29" name="woodenSupports_E_2_6_foot2" type="West storage rack" x="256" y="768">
+   <polygon points="82,47 99,38 111,50 110,98 96,112 83,100"/>
+  </object>
+  <object id="30" name="woodenSupports_W_6_6_foot1" type="East storage rack" x="768" y="768">
+   <polygon points="18,48 35,38 45,48 43,102 27,113 17,98"/>
+  </object>
+  <object id="31" name="woodenSupports_W_6_6_foot2" type="East storage rack" x="768" y="768">
+   <polygon points="82,47 99,38 111,50 110,98 96,112 83,100"/>
+  </object>
+  <object id="32" name="woodenPile_E_4_7" type="Failed door barricade" x="512" y="896">
+   <polygon points="8,62 30,30 74,20 116,49 108,91 65,113 22,100"/>
+  </object>
+  <object id="33" name="woodenCrate_E_3_6" type="Barricade supply" x="384" y="768">
+   <polygon points="20,40 61,18 108,40 108,96 62,116 18,92"/>
+  </object>
+  <object id="34" name="barrel_E_14_2" type="Ceremonial ale" x="1792" y="256">
+   <polygon points="34,35 64,20 94,35 99,85 77,111 46,108 29,80"/>
+  </object>
+  <object id="35" name="barrels_E_17_2" type="Kitchen reserve" x="2176" y="256">
+   <polygon points="15,46 42,21 91,22 114,53 106,96 65,115 22,101"/>
+  </object>
+  <object id="36" name="tableRoundItemsChairs_E_13_3" type="Last intact feast table" x="1664" y="384">
+   <polygon points="8,45 39,15 88,14 119,43 121,88 86,117 39,119 8,88"/>
+  </object>
+  <object id="37" name="tableShortChairs_W_16_3" type="Servants table" x="2048" y="384">
+   <polygon points="8,49 50,15 118,39 121,89 72,120 17,103"/>
+  </object>
+  <object id="38" name="chair_S_13_5" type="Chair pushed toward alarm" x="1664" y="640">
+   <polygon points="37,47 63,29 91,45 94,89 68,108 39,91"/>
+  </object>
+  <object id="39" name="tableChairsBroken_E_15_5" type="Overturned central table" x="1920" y="640">
+   <polygon points="7,53 28,22 75,13 118,38 121,77 102,110 54,121 15,101"/>
+  </object>
+  <object id="40" name="chair_N_17_5" type="Chair thrown aside" x="2176" y="640">
+   <polygon points="37,47 63,29 91,45 94,89 68,108 39,91"/>
+  </object>
+  <object id="41" name="woodenPile_E_13_7" type="Improvised barricade" x="1664" y="896">
+   <polygon points="8,62 30,30 74,20 116,49 108,91 65,113 22,100"/>
+  </object>
+  <object id="42" name="tableChairsBroken_W_15_7" type="Final defense position" x="1920" y="896">
+   <polygon points="7,53 28,22 75,13 118,38 121,77 102,110 54,121 15,101"/>
+  </object>
+  <object id="43" name="barrel_W_17_7" type="Spilled drink barrel" x="2176" y="896">
+   <polygon points="34,35 64,20 94,35 99,85 77,111 46,108 29,80"/>
+  </object>
+  <object id="44" name="woodenCrate_W_18_4" type="Kitchen stores" x="2304" y="512">
+   <polygon points="20,40 61,18 108,40 108,96 62,116 18,92"/>
+  </object>
+  <object id="45" name="chair_E_17_8" type="Watch chair by arch" x="2176" y="1024">
+   <polygon points="37,47 63,29 91,45 94,89 68,108 39,91"/>
+  </object>
+  <object id="46" name="woodenSupports_E_2_13_foot1" type="Old west pit support" x="256" y="1664">
+   <polygon points="18,48 35,38 45,48 43,102 27,113 17,98"/>
+  </object>
+  <object id="47" name="woodenSupports_E_2_13_foot2" type="Old west pit support" x="256" y="1664">
+   <polygon points="82,47 99,38 111,50 110,98 96,112 83,100"/>
+  </object>
+  <object id="48" name="woodenSupports_W_7_13_foot1" type="Old east pit support" x="896" y="1664">
+   <polygon points="18,48 35,38 45,48 43,102 27,113 17,98"/>
+  </object>
+  <object id="49" name="woodenSupports_W_7_13_foot2" type="Old east pit support" x="896" y="1664">
+   <polygon points="82,47 99,38 111,50 110,98 96,112 83,100"/>
+  </object>
+  <object id="50" name="woodenSupportBeams_E_3_14" type="Sagging roof brace" x="384" y="1792">
+   <polygon points="10,50 30,31 103,40 118,62 101,84 29,76"/>
+  </object>
+  <object id="51" name="woodenPile_E_2_16" type="Cave-in rubble" x="256" y="2048">
+   <polygon points="8,62 30,30 74,20 116,49 108,91 65,113 22,100"/>
+  </object>
+  <object id="52" name="woodenCrates_E_3_17" type="Abandoned blasting stores" x="384" y="2176">
+   <polygon points="12,42 51,18 110,30 119,82 88,114 32,112 10,78"/>
+  </object>
+  <object id="53" name="barrel_E_5_17" type="Lamp oil" x="640" y="2176">
+   <polygon points="34,35 64,20 94,35 99,85 77,111 46,108 29,80"/>
+  </object>
+  <object id="54" name="woodenSupports_W_7_17_foot1" type="Emergency roof support" x="896" y="2176">
+   <polygon points="18,48 35,38 45,48 43,102 27,113 17,98"/>
+  </object>
+  <object id="55" name="woodenSupports_W_7_17_foot2" type="Emergency roof support" x="896" y="2176">
+   <polygon points="82,47 99,38 111,50 110,98 96,112 83,100"/>
+  </object>
+  <object id="56" name="stoneColumnWood_W_8_14" type="Reinforced breach pier" x="1024" y="1792">
+   <polygon points="23,42 61,20 104,40 106,94 66,115 25,96"/>
+  </object>
+  <object id="57" name="woodenSupportsBlock_W_8_16" type="Blocked breach brace" x="1024" y="2048">
+   <polygon points="15,46 45,22 105,38 115,82 81,111 27,100"/>
+  </object>
+  <object id="58" name="woodenCrate_E_4_13" type="Mining tools" x="512" y="1664">
+   <polygon points="20,40 61,18 108,40 108,96 62,116 18,92"/>
+  </object>
+  <object id="59" name="woodenPile_E_2_18" type="Outer cave-in rubble" x="256" y="2304">
+   <polygon points="8,62 30,30 74,20 116,49 108,91 65,113 22,100"/>
+  </object>
+  <object id="60" name="stoneColumn_E_8_9" type="Shrine column northwest" x="1024" y="1152">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="61" name="stoneColumn_W_11_9" type="Shrine column northeast" x="1408" y="1152">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="62" name="stoneColumn_E_8_11" type="Shrine column southwest" x="1024" y="1408">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="63" name="stoneColumn_W_11_11" type="Shrine column southeast" x="1408" y="1408">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="64" name="chestClosed_E_10_8" type="Sealed keeper offering" x="1280" y="1024">
+   <polygon points="21,48 59,25 108,43 110,87 69,112 25,98"/>
+  </object>
+  <object id="65" name="chestOpen_E_9_12" type="Ransacked offering chest" x="1152" y="1536">
+   <polygon points="19,48 58,18 109,35 113,88 70,114 23,99"/>
+  </object>
+  <object id="66" name="barrel_E_9_9" type="Emergency water cache" x="1152" y="1152">
+   <polygon points="34,35 64,20 94,35 99,85 77,111 46,108 29,80"/>
+  </object>
+  <object id="67" name="stoneColumn_E_13_14" type="Reliquary west column" x="1664" y="1792">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="68" name="stoneColumn_W_17_14" type="Reliquary east column" x="2176" y="1792">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="69" name="tableShort_E_15_14" type="Warden record desk" x="1920" y="1792">
+   <polygon points="15,49 55,22 111,43 112,87 69,112 20,95"/>
+  </object>
+  <object id="70" name="chair_E_14_15" type="West guard chair" x="1792" y="1920">
+   <polygon points="37,47 63,29 91,45 94,89 68,108 39,91"/>
+  </object>
+  <object id="71" name="chair_W_16_15" type="East guard chair" x="2048" y="1920">
+   <polygon points="37,47 63,29 91,45 94,89 68,108 39,91"/>
+  </object>
+  <object id="72" name="stoneColumn_E_13_17" type="Reliquary west rear column" x="1664" y="2176">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="73" name="stoneColumn_W_17_17" type="Reliquary east rear column" x="2176" y="2176">
+   <polygon points="34,42 63,25 94,42 96,91 65,110 35,91"/>
+  </object>
+  <object id="74" name="chestClosed_E_15_17" type="Sealed relic coffer" x="1920" y="2176">
+   <polygon points="21,48 59,25 108,43 110,87 69,112 25,98"/>
+  </object>
+  <object id="75" name="chestClosed_W_16_17" type="Keeper treasury" x="2048" y="2176">
+   <polygon points="21,48 59,25 108,43 110,87 69,112 25,98"/>
+  </object>
+  <object id="76" name="woodenCrates_E_15_18" type="Evacuation stores" x="1920" y="2304">
+   <polygon points="12,42 51,18 110,30 119,82 88,114 32,112 10,78"/>
+  </object>
+  <object id="77" name="barrels_W_18_16" type="Long-siege water" x="2304" y="2048">
+   <polygon points="15,46 42,21 91,22 114,53 106,96 65,115 22,101"/>
+  </object>
+  <object id="83" name="WorksNorthWest" x="866.087" y="1406.89" width="404.915" height="32"/>
+ </objectgroup>
+ <objectgroup id="6" name="Story" visible="0">
+  <object id="78" name="Descent Shrine" type="Room" x="1024" y="1024" width="512" height="640">
+   <properties>
+    <property name="Purpose" value="Arrival and emergency sanctuary"/>
+    <property name="Tale" value="Keepers descended here after the miners breached the lower vault."/>
+   </properties>
+  </object>
+  <object id="79" name="Quartermaster's Lockup" type="Room" x="128" y="128" width="768" height="896">
+   <properties>
+    <property name="Purpose" value="Provisioning and payroll"/>
+    <property name="Tale" value="The open pay chest and failed barricade show a rushed evacuation."/>
+   </properties>
+  </object>
+  <object id="80" name="The Last Feast" type="Room" x="1536" y="128" width="896" height="1024">
+   <properties>
+    <property name="Purpose" value="Communal hall and alarm muster"/>
+    <property name="Tale" value="A formal meal became the defenders last barricade."/>
+   </properties>
+  </object>
+  <object id="81" name="Collapsed Works" type="Room" x="128" y="1536" width="1024" height="896">
+   <properties>
+    <property name="Purpose" value="Excavation and ore haulage"/>
+    <property name="Tale" value="Broken supports and the interrupted plank route mark the original breach."/>
+   </properties>
+  </object>
+  <object id="82" name="Warden's Reliquary" type="Room" x="1664" y="1664" width="768" height="768">
+   <properties>
+    <property name="Purpose" value="Archive, treasury, and relic custody"/>
+    <property name="Tale" value="Matched guard posts protect the coffers sealed after the breach."/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

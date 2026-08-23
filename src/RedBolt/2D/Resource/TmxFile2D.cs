@@ -22,6 +22,7 @@ public class TmxLayer2D
     public string Name { get; protected set; } = string.Empty;
     public int Width { get; protected set; }
     public int Height { get; protected set; }
+    public Vector2f Offset { get; protected set; }
     public bool IsVisible { get; protected set; } = true;
     protected PropertySet2D? PropertySet;
     public bool HasProperty(string name) => PropertySet?.HasProperty(name) == true;
@@ -32,6 +33,8 @@ public class TmxLayer2D
         Name = Attribute(element, "name");
         Width = AttributeInt(element, "width");
         Height = AttributeInt(element, "height");
+        Offset = new Vector2f(AttributeFloat(element, "offsetx") * Sprite2D.PixelSize,
+            -AttributeFloat(element, "offsety") * Sprite2D.PixelSize);
         IsVisible = element.Attribute("visible") is null || AttributeInt(element, "visible") != 0;
         if (element.Element("properties") is { } properties)
         {
@@ -350,6 +353,8 @@ public partial class TmxFile2D : Resource
         _collisionShapes.TryGetValue(gid, out var shapes) ? shapes : Array.Empty<TileMapObject2D>();
     public PropertySet2D? GetTilePropertySet(uint gid) => _propertySets.GetValueOrDefault(gid);
     public TmxLayer2D? GetLayer(uint index) => index < _layers.Count ? _layers[(int)index] : null;
+    public TmxLayer2D? GetLayer(string name) =>
+        _layers.FirstOrDefault(layer => string.Equals(layer.Name, name, StringComparison.Ordinal));
 
     internal Texture2D? LoadTexture(string source) => GetSubsystem<ResourceCache>()?.GetResource<Texture2D>(ParentPath(Name) + source);
 

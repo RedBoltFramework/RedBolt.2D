@@ -52,6 +52,8 @@ public partial class TileMap2D : Component
     public TileMapInfo2D Info => _tmxFile?.Info ?? default;
     public uint NumLayers => (uint)_layers.Count;
     public TileMapLayer2D? GetLayer(uint index) => index < _layers.Count ? _layers[(int)index] : null;
+    public TileMapLayer2D? GetLayer(string name) =>
+        _layers.FirstOrDefault(layer => string.Equals(layer.TmxLayer?.Name, name, StringComparison.Ordinal));
     public Vector2f TileIndexToPosition(int x, int y) => Info.TileIndexToPosition(x, y);
     public bool PositionToTileIndex(ref int x, ref int y, Vector2f position) => Info.PositionToTileIndex(ref x, ref y, position);
     public IReadOnlyList<TileMapObject2D> GetTileCollisionShapes(uint gid) =>

@@ -48,18 +48,22 @@ public sealed class Urho2DTileMap : Application
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
+        var zone = scene.CreateChild("Backdrop").CreateComponent<Zone>();
+        zone.SetBoundingBox(new BoundingBox(-1000.0f, 1000.0f));
+        zone.SetFogColor(new Color(0.23f, 0.23f, 0.23f));
         _cameraNode = scene.CreateChild("Camera");
         _cameraNode.SetPosition(new Vector3f(0.0f, 0.0f, -10.0f));
         var camera = _cameraNode.CreateComponent<Camera>();
         camera.SetOrthographic(true);
         camera.OrthoSize = Graphics.Height * Sprite2D.PixelSize;
-        camera.SetZoom(MathF.Min(Graphics.Width / 1280.0f, Graphics.Height / 800.0f));
+        camera.SetZoom(MathF.Min(Graphics.Width / 1280.0f, Graphics.Height / 800.0f) * 0.72f);
 
-        if (Resources.Get<TmxFile2D>("Urho2D/isometric_grass_and_water.tmx") is { } tmx)
+        if (Resources.Get<TmxFile2D>("Urho2D/Tilesets/TiledSample/Sample.tmx") is { } tmx)
         {
             var tileMap = scene.CreateChild("TileMap").CreateComponent<TileMap2D>();
             tileMap.TmxFile = tmx;
-            _cameraNode.SetPosition(new Vector3f(tileMap.Info.MapWidth * 0.5f, tileMap.Info.MapHeight * 0.5f, -10.0f));
+            _cameraNode.SetPosition(new Vector3f(tileMap.Info.MapWidth * 0.625f,
+                tileMap.Info.MapHeight * 0.235f, -10.0f));
         }
         Renderer.SetViewport(0, new Viewport(scene, camera));
         Input.SetMouseMode(MouseMode.Free);

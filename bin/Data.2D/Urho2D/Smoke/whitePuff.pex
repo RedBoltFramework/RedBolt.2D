@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<particleEmitterConfig>
+  <texture name="whitePuff00.png"/>
+  <sourcePositionVariance x="4" y="4"/>
+  <speed value="12"/><speedVariance value="6"/>
+  <particleLifeSpan value="1.8"/><particleLifespanVariance value="0.6"/>
+  <angle value="90"/><angleVariance value="35"/>
+  <gravity x="0" y="-4"/>
+  <radialAcceleration value="0"/><radialAccelVariance value="0"/>
+  <tangentialAcceleration value="0"/><tangentialAccelVariance value="0"/>
+  <startColor red="1" green="1" blue="1" alpha="0.75"/>
+  <startColorVariance red="0.1" green="0.1" blue="0.1" alpha="0.15"/>
+  <finishColor red="0.75" green="0.75" blue="0.75" alpha="0"/>
+  <finishColorVariance red="0.1" green="0.1" blue="0.1" alpha="0"/>
+  <maxParticles value="80"/>
+  <startParticleSize value="84"/><startParticleSizeVariance value="24"/>
+  <finishParticleSize value="168"/><FinishParticleSizeVariance value="36"/>
+  <duration value="-1"/><emitterType value="0"/>
+  <blendFuncSource value="770"/><blendFuncDestination value="771"/>
+  <rotationStart value="0"/><rotationStartVariance value="180"/>
+  <rotationEnd value="0"/><rotationEndVariance value="180"/>
+</particleEmitterConfig>

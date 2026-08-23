@@ -56,13 +56,19 @@ public sealed class Urho2DParticle : Application
         _camera.OrthoSize = Graphics.Height * Sprite2D.PixelSize;
         _camera.SetZoom(1.2f * MathF.Min(Graphics.Width / 1280.0f, Graphics.Height / 800.0f));
 
-        if (Resources.Get<ParticleEffect2D>("Urho2D/sun.pex") is { } sun)
+        var blackSmoke = Resources.Get<ParticleEffect2D>("Urho2D/Smoke/blackSmoke.pex");
+        var whitePuff = Resources.Get<ParticleEffect2D>("Urho2D/Smoke/whitePuff.pex");
+        if (blackSmoke is not null)
         {
-            _particleNode = scene.CreateChild("ParticleEmitter2D");
-            _particleNode.CreateComponent<ParticleEmitter2D>().Effect = sun;
+            _particleNode = CreateEmitter(scene, "CursorSmoke", blackSmoke, Vector2f.Zero, 0.70f);
+            CreateEmitter(scene, "BlackSmokeLeft", blackSmoke, new Vector2f(-3.5f, 1.4f), 0.60f);
+            CreateEmitter(scene, "BlackSmokeRight", blackSmoke, new Vector2f(3.5f, -1.3f), 0.60f);
         }
-        if (Resources.Get<ParticleEffect2D>("Urho2D/greenspiral.pex") is { } spiral)
-            scene.CreateChild("GreenSpiral").CreateComponent<ParticleEmitter2D>().Effect = spiral;
+        if (whitePuff is not null)
+        {
+            CreateEmitter(scene, "WhitePuffLeft", whitePuff, new Vector2f(-3.0f, -1.7f), 0.60f);
+            CreateEmitter(scene, "WhitePuffRight", whitePuff, new Vector2f(3.0f, 1.8f), 0.60f);
+        }
 
         Renderer.SetViewport(0, new Viewport(scene, _camera));
         Input.SetMouseMode(MouseMode.Free);
@@ -77,5 +83,16 @@ public sealed class Urho2DParticle : Application
         var world = _camera.ScreenToWorldPoint(new Vector3f(mouse.X / (float)Graphics.Width,
             mouse.Y / (float)Graphics.Height, 10.0f));
         _particleNode.SetPosition(world);
+    }
+
+    private static Node CreateEmitter(Scene scene, string name, ParticleEffect2D effect, Vector2f position, float scale)
+    {
+        var node = scene.CreateChild(name);
+        node.SetPosition2D(position);
+        node.SetScale(scale);
+        var emitter = node.CreateComponent<ParticleEmitter2D>();
+        emitter.Effect = effect;
+        emitter.Layer = 1;
+        return node;
     }
 }

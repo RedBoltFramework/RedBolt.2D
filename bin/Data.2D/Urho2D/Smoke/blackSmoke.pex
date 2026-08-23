@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<particleEmitterConfig>
+  <texture name="blackSmoke00.png"/>
+  <sourcePositionVariance x="0" y="0"/>
+  <speed value="18"/><speedVariance value="8"/>
+  <particleLifeSpan value="2.5"/><particleLifespanVariance value="0.8"/>
+  <angle value="90"/><angleVariance value="25"/>
+  <gravity x="0" y="-8"/>
+  <radialAcceleration value="0"/><radialAccelVariance value="0"/>
+  <tangentialAcceleration value="0"/><tangentialAccelVariance value="0"/>
+  <startColor red="0.45" green="0.45" blue="0.45" alpha="0.8"/>
+  <startColorVariance red="0.1" green="0.1" blue="0.1" alpha="0.2"/>
+  <finishColor red="0.1" green="0.1" blue="0.1" alpha="0"/>
+  <finishColorVariance red="0.05" green="0.05" blue="0.05" alpha="0"/>
+  <maxParticles value="80"/>
+  <startParticleSize value="96"/><startParticleSizeVariance value="24"/>
+  <finishParticleSize value="192"/><FinishParticleSizeVariance value="48"/>
+  <duration value="-1"/><emitterType value="0"/>
+  <blendFuncSource value="770"/><blendFuncDestination value="771"/>
+  <rotationStart value="0"/><rotationStartVariance value="180"/>
+  <rotationEnd value="0"/><rotationEndVariance value="180"/>
+</particleEmitterConfig>

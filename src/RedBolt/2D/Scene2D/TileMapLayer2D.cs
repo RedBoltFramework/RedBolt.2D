@@ -33,8 +33,17 @@ public partial class TileMapLayer2D : Component
             if (_drawOrder == value)
                 return;
             _drawOrder = value;
+            if (IsIsometricDepthSorted)
+            {
+                foreach (var node in _nodes)
+                    if (node?.GetComponent<StaticSprite2D>() is { } sprite)
+                        sprite.OrderInLayer = value;
+            }
+            if (_tileMap?.Info.Orientation == Orientation2D.Isometric)
+                return;
             foreach (var node in _nodes)
-                if (node?.GetComponent<StaticSprite2D>() is { } sprite) sprite.Layer = value;
+                if (node?.GetComponent<StaticSprite2D>() is { } sprite)
+                    ApplyDrawOrder(sprite, node.GetPosition2D());
         }
     }
     public bool IsVisible
@@ -129,12 +138,15 @@ public partial class TileMapLayer2D : Component
             if (tile is null)
                 continue;
             var node = Node.CreateTemporaryChild("Tile");
-            node.SetPosition2D(info.TileIndexToPosition(x, y));
+            node.SetPosition2D(info.TileIndexToPosition(x, y) + layer.Offset);
             var sprite = node.CreateComponent<StaticSprite2D>();
             sprite.Sprite = tile.Sprite;
             sprite.SetFlip(tile.FlipX, tile.FlipY, tile.SwapXY);
-            sprite.Layer = _drawOrder;
             sprite.OrderInLayer = y * layer.Width + x;
+            var groundPosition = node.GetPosition2D();
+            if (info.Orientation == Orientation2D.Isometric)
+                groundPosition += new Vector2f(info.TileWidth * 0.5f, info.TileHeight * 0.5f);
+            ApplyDrawOrder(sprite, groundPosition);
             _nodes[y * layer.Width + x] = node;
         }
     }
@@ -152,8 +164,8 @@ public partial class TileMapLayer2D : Component
                 var sprite = node.CreateComponent<StaticSprite2D>();
                 sprite.Sprite = value.TileSprite;
                 sprite.SetFlip(value.TileFlipX, value.TileFlipY, value.TileSwapXY);
-                sprite.Layer = _drawOrder;
                 sprite.OrderInLayer = (int)((10.0f - value.Position.Y) * 100.0f);
+                ApplyDrawOrder(sprite, value.Position);
                 if (_tileMap!.Info.Orientation == Orientation2D.Isometric)
                 {
                     sprite.UseHotSpot = true;
@@ -181,4 +193,20 @@ public partial class TileMapLayer2D : Component
     private static void AddLine(DebugRenderer debug, Matrix3x4 transform, Vector2f start, Vector2f end, bool depthTest) =>
         debug.AddLine(transform * new Vector3f(start.X, start.Y, 0.0f),
             transform * new Vector3f(end.X, end.Y, 0.0f), Color.Yellow, depthTest);
+
+    private void ApplyDrawOrder(StaticSprite2D sprite, Vector2f groundPosition)
+    {
+        if (IsIsometricDepthSorted)
+        {
+            sprite.Layer = -(int)(groundPosition.Y * 100.0f);
+            sprite.OrderInLayer = _drawOrder;
+        }
+        else if (_tileMap!.Info.Orientation == Orientation2D.Isometric)
+            sprite.Layer = -10;
+        else
+            sprite.Layer = _drawOrder;
+    }
+
+    private bool IsIsometricDepthSorted => _tileMap?.Info.Orientation == Orientation2D.Isometric &&
+        !string.Equals(_tmxLayer?.GetProperty("DepthSorted"), "false", StringComparison.OrdinalIgnoreCase);
 }
