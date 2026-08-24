@@ -14,6 +14,8 @@ using RedBolt.Scene;
 [Reflected]
 public partial class TileMapLayer2D : Component
 {
+    private const int IsometricBackgroundLayer = short.MinValue;
+
     private TileMap2D? _tileMap;
     private TmxLayer2D? _tmxLayer;
     private TmxTileLayer2D? _tileLayer;
@@ -202,7 +204,7 @@ public partial class TileMapLayer2D : Component
             sprite.OrderInLayer = _drawOrder;
         }
         else if (_tileMap!.Info.Orientation == Orientation2D.Isometric)
-            sprite.Layer = -10;
+            sprite.Layer = IsometricBackgroundLayer;
         else
             sprite.Layer = _drawOrder;
     }
