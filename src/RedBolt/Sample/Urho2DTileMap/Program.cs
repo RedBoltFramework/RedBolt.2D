@@ -56,14 +56,22 @@ public sealed class Urho2DTileMap : Application
         var camera = _cameraNode.CreateComponent<Camera>();
         camera.SetOrthographic(true);
         camera.OrthoSize = Graphics.Height * Sprite2D.PixelSize;
-        camera.SetZoom(MathF.Min(Graphics.Width / 1280.0f, Graphics.Height / 800.0f) * 0.72f);
 
         if (Resources.Get<TmxFile2D>("Urho2D/Tilesets/TiledSample/Sample.tmx") is { } tmx)
         {
             var tileMap = scene.CreateChild("TileMap").CreateComponent<TileMap2D>();
             tileMap.TmxFile = tmx;
-            _cameraNode.SetPosition(new Vector3f(tileMap.Info.MapWidth * 0.625f,
-                tileMap.Info.MapHeight * 0.235f, -10.0f));
+            var contentBounds = GetTileContentBounds(tmx);
+            var center = contentBounds.Defined
+                ? contentBounds.Center
+                : new Vector2f(tileMap.Info.MapWidth, tileMap.Info.MapHeight) * 0.5f;
+            _cameraNode.SetPosition(new Vector3f(center.X, center.Y, -10.0f));
+            if (contentBounds.Defined && contentBounds.Size.X > 0.0f && contentBounds.Size.Y > 0.0f)
+            {
+                var fitZoom = MathF.Min(Graphics.Width * Sprite2D.PixelSize / contentBounds.Size.X,
+                    Graphics.Height * Sprite2D.PixelSize / contentBounds.Size.Y);
+                camera.SetZoom(fitZoom * 0.9f);
+            }
         }
         Renderer.SetViewport(0, new Viewport(scene, camera));
         Input.SetMouseMode(MouseMode.Free);
@@ -83,5 +91,28 @@ public sealed class Urho2DTileMap : Application
         var camera = _cameraNode.GetComponent<Camera>()!;
         if (Input.GetKeyDown(Key.PageUp)) camera.SetZoom(camera.Zoom * 1.01f);
         if (Input.GetKeyDown(Key.PageDown)) camera.SetZoom(camera.Zoom * 0.99f);
+    }
+
+    private static Rect GetTileContentBounds(TmxFile2D tmx)
+    {
+        var bounds = new Rect();
+        for (uint layerIndex = 0; layerIndex < tmx.NumLayers; ++layerIndex)
+        {
+            if (tmx.GetLayer(layerIndex) is not TmxTileLayer2D { IsVisible: true } layer)
+                continue;
+            for (var y = 0; y < layer.Height; ++y)
+            for (var x = 0; x < layer.Width; ++x)
+            {
+                var tile = layer.GetTile(x, y);
+                if (tile?.Sprite is not { } sprite ||
+                    !sprite.GetDrawRectangle(out var spriteBounds, tile.FlipX, tile.FlipY))
+                    continue;
+                var position = tmx.Info.TileIndexToPosition(x, y) + layer.Offset;
+                spriteBounds.Min += position;
+                spriteBounds.Max += position;
+                bounds.Merge(spriteBounds);
+            }
+        }
+        return bounds;
     }
 }
