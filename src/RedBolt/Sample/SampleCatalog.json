@@ -13,10 +13,10 @@
     "bin/SampleData.2D/**/*"
   ],
   "samples": [
-    { "id": "urho2d-sprite", "name": "Urho2D Sprite", "applicationType": "RedBolt.Sample.Urho2DSprite.Urho2DSprite", "source": "Urho2DSprite" },
+    { "id": "urho2d-sprite", "name": "Urho2D Sprite", "applicationType": "RedBolt.Sample.Urho2DSprite.Urho2DSprite", "source": "Urho2DSprite", "mobileHelp": "Use the direction pad to pan the camera.", "mobileMovement": "wasd", "mobileControls": [{"label": "Zoom in", "key": "PageUp"}, {"label": "Zoom out", "key": "PageDown"}] },
     { "id": "urho2d-particle", "name": "Urho2D Particle", "applicationType": "RedBolt.Sample.Urho2DParticle.Urho2DParticle", "source": "Urho2DParticle" },
-    { "id": "urho2d-spriter-animation", "name": "Urho2D Spriter Animation", "applicationType": "RedBolt.Sample.Urho2DSpriterAnimation.Urho2DSpriterAnimation", "source": "Urho2DSpriterAnimation" },
-    { "id": "urho2d-tile-map", "name": "Urho2D Tile Map", "applicationType": "RedBolt.Sample.Urho2DTileMap.Urho2DTileMap", "source": "Urho2DTileMap" },
+    { "id": "urho2d-spriter-animation", "name": "Urho2D Spriter Animation", "applicationType": "RedBolt.Sample.Urho2DSpriterAnimation.Urho2DSpriterAnimation", "source": "Urho2DSpriterAnimation", "mobileHelp": "Use the direction pad to pan the camera.", "mobileMovement": "wasd", "mobileControls": [{"label": "Zoom in", "key": "PageUp"}, {"label": "Zoom out", "key": "PageDown"}, {"label": "Animation", "key": "Space"}] },
+    { "id": "urho2d-tile-map", "name": "Urho2D Tile Map", "applicationType": "RedBolt.Sample.Urho2DTileMap.Urho2DTileMap", "source": "Urho2DTileMap", "mobileHelp": "Use the direction pad to pan the camera.", "mobileMovement": "wasd", "mobileControls": [{"label": "Zoom in", "key": "PageUp"}, {"label": "Zoom out", "key": "PageDown"}] },
     { "id": "urho2d-stretchable-sprite", "name": "Urho2D Stretchable Sprite", "applicationType": "RedBolt.Sample.Urho2DStretchableSprite.Urho2DStretchableSprite", "source": "Urho2DStretchableSprite" }
   ]
 }
