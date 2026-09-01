@@ -28,6 +28,7 @@ internal static class Urho2DSpriteProgram
 /// <summary>Demonstrates a small aquarium built from atlas sprites.</summary>
 public sealed class Urho2DSprite : Application
 {
+    private SampleInputMap? _sampleInput;
     private const int NumFish = 80;
     private readonly List<(Node Node, StaticSprite2D Sprite, Vector2f MoveSpeed)> _sprites = [];
     private readonly List<(Node Node, Vector2f MoveSpeed)> _bubbles = [];
@@ -50,6 +51,9 @@ public sealed class Urho2DSprite : Application
 
     protected override void Start()
     {
+        _sampleInput = new SampleInputMap(movement: true);
+        _sampleInput.AddButton("ZoomIn", Scancode.PageUp, ControllerButton.RightShoulder, "+");
+        _sampleInput.AddButton("ZoomOut", Scancode.PageDown, ControllerButton.LeftShoulder, "-", 1);
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
@@ -123,7 +127,7 @@ public sealed class Urho2DSprite : Application
 
     protected override void Update(float timeStep)
     {
-        if (Input.ExitRequested || Input.GetKeyPress(Key.Escape)) { Exit(); return; }
+        if (Input.ExitRequested || _sampleInput!.Pressed("Exit")) { Exit(); return; }
         MoveCamera(timeStep);
         var halfWidth = Graphics.Width * 0.5f * Sprite2D.PixelSize;
         var halfHeight = Graphics.Height * 0.5f * Sprite2D.PixelSize;
@@ -171,13 +175,18 @@ public sealed class Urho2DSprite : Application
     {
         const float moveSpeed = 4.0f;
         var movement = Vector2f.Zero;
-        if (Input.GetKeyDown(Key.W)) movement.Y += moveSpeed * timeStep;
-        if (Input.GetKeyDown(Key.S)) movement.Y -= moveSpeed * timeStep;
-        if (Input.GetKeyDown(Key.A)) movement.X -= moveSpeed * timeStep;
-        if (Input.GetKeyDown(Key.D)) movement.X += moveSpeed * timeStep;
+        movement.Y += (_sampleInput!.Evaluate("Forward") - _sampleInput.Evaluate("Back")) * moveSpeed * timeStep;
+        movement.X += (_sampleInput.Evaluate("Right") - _sampleInput.Evaluate("Left")) * moveSpeed * timeStep;
         _cameraNode!.Translate2D(movement);
         var camera = _cameraNode.GetComponent<Camera>()!;
-        if (Input.GetKeyDown(Key.PageUp)) camera.SetZoom(camera.Zoom * 1.01f);
-        if (Input.GetKeyDown(Key.PageDown)) camera.SetZoom(camera.Zoom * 0.99f);
+        if (_sampleInput.Evaluate("ZoomIn") > 0.0f) camera.SetZoom(camera.Zoom * 1.01f);
+        if (_sampleInput.Evaluate("ZoomOut") > 0.0f) camera.SetZoom(camera.Zoom * 0.99f);
+    }
+
+    protected override void Stop()
+    {
+        _sampleInput?.Dispose();
+        _sampleInput = null;
+        base.Stop();
     }
 }

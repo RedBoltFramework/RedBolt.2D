@@ -31,6 +31,7 @@ internal static class Urho2DSpriterAnimationProgram
 /// <summary>Demonstrates SCML Spriter animation playback.</summary>
 public sealed class Urho2DSpriterAnimation : Application
 {
+    private SampleInputMap? _sampleInput;
     private Node? _cameraNode;
     private AnimatedSprite2D? _animatedSprite;
     private AnimationSet2D? _animationSet;
@@ -55,6 +56,11 @@ public sealed class Urho2DSpriterAnimation : Application
 
     protected override void Start()
     {
+        _sampleInput = new SampleInputMap(movement: true);
+        _sampleInput.AddButton("ZoomIn", Scancode.PageUp, ControllerButton.RightShoulder, "+", 1);
+        _sampleInput.AddButton("ZoomOut", Scancode.PageDown, ControllerButton.LeftShoulder, "-", 2);
+        _sampleInput.AddMouseButton("NextAnimation", MouseButton.Left, ControllerButton.A, "NEXT");
+        _sampleInput.Map.MapKeyboardKey("NextAnimation", Scancode.Space);
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
@@ -80,23 +86,28 @@ public sealed class Urho2DSpriterAnimation : Application
 
     protected override void Update(float timeStep)
     {
-        if (Input.ExitRequested || Input.GetKeyPress(Key.Escape)) { Exit(); return; }
+        if (Input.ExitRequested || _sampleInput!.Pressed("Exit")) { Exit(); return; }
         const float speed = 4.0f;
         var movement = Vector2f.Zero;
-        if (Input.GetKeyDown(Key.W)) movement.Y += speed * timeStep;
-        if (Input.GetKeyDown(Key.S)) movement.Y -= speed * timeStep;
-        if (Input.GetKeyDown(Key.A)) movement.X -= speed * timeStep;
-        if (Input.GetKeyDown(Key.D)) movement.X += speed * timeStep;
+        movement.Y += (_sampleInput.Evaluate("Forward") - _sampleInput.Evaluate("Back")) * speed * timeStep;
+        movement.X += (_sampleInput.Evaluate("Right") - _sampleInput.Evaluate("Left")) * speed * timeStep;
         _cameraNode!.Translate2D(movement);
         var camera = _cameraNode.GetComponent<Camera>()!;
-        if (Input.GetKeyDown(Key.PageUp)) camera.SetZoom(camera.Zoom * 1.01f);
-        if (Input.GetKeyDown(Key.PageDown)) camera.SetZoom(camera.Zoom * 0.99f);
-        if ((Input.GetMouseButtonPress(MouseButton.Left) || Input.GetKeyPress(Key.Space)) &&
+        if (_sampleInput.Evaluate("ZoomIn") > 0.0f) camera.SetZoom(camera.Zoom * 1.01f);
+        if (_sampleInput.Evaluate("ZoomOut") > 0.0f) camera.SetZoom(camera.Zoom * 0.99f);
+        if (_sampleInput.Pressed("NextAnimation") &&
             _animationSet is { NumAnimations: > 0 } && _animatedSprite is not null)
         {
             _animationIndex = (_animationIndex + 1) % _animationSet.NumAnimations;
             _animatedSprite.SetAnimation(_animationSet.GetAnimation(_animationIndex), LoopMode2D.ForceLooped);
         }
+    }
+
+    protected override void Stop()
+    {
+        _sampleInput?.Dispose();
+        _sampleInput = null;
+        base.Stop();
     }
 
     private void CreateInstructions()

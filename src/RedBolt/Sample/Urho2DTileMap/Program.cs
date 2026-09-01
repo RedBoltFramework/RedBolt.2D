@@ -26,6 +26,7 @@ internal static class Urho2DTileMapProgram
 /// <summary>Demonstrates loading and rendering an isometric TMX map.</summary>
 public sealed class Urho2DTileMap : Application
 {
+    private SampleInputMap? _sampleInput;
     private Node? _cameraNode;
 
     protected override void Setup(EngineParameters parameters)
@@ -45,6 +46,9 @@ public sealed class Urho2DTileMap : Application
 
     protected override void Start()
     {
+        _sampleInput = new SampleInputMap(movement: true);
+        _sampleInput.AddButton("ZoomIn", Scancode.PageUp, ControllerButton.RightShoulder, "+");
+        _sampleInput.AddButton("ZoomOut", Scancode.PageDown, ControllerButton.LeftShoulder, "-");
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
@@ -80,17 +84,22 @@ public sealed class Urho2DTileMap : Application
 
     protected override void Update(float timeStep)
     {
-        if (Input.ExitRequested || Input.GetKeyPress(Key.Escape)) { Exit(); return; }
+        if (Input.ExitRequested || _sampleInput!.Pressed("Exit")) { Exit(); return; }
         const float speed = 4.0f;
         var movement = Vector2f.Zero;
-        if (Input.GetKeyDown(Key.W)) movement.Y += speed * timeStep;
-        if (Input.GetKeyDown(Key.S)) movement.Y -= speed * timeStep;
-        if (Input.GetKeyDown(Key.A)) movement.X -= speed * timeStep;
-        if (Input.GetKeyDown(Key.D)) movement.X += speed * timeStep;
+        movement.Y += (_sampleInput.Evaluate("Forward") - _sampleInput.Evaluate("Back")) * speed * timeStep;
+        movement.X += (_sampleInput.Evaluate("Right") - _sampleInput.Evaluate("Left")) * speed * timeStep;
         _cameraNode!.Translate2D(movement);
         var camera = _cameraNode.GetComponent<Camera>()!;
-        if (Input.GetKeyDown(Key.PageUp)) camera.SetZoom(camera.Zoom * 1.01f);
-        if (Input.GetKeyDown(Key.PageDown)) camera.SetZoom(camera.Zoom * 0.99f);
+        if (_sampleInput.Evaluate("ZoomIn") > 0.0f) camera.SetZoom(camera.Zoom * 1.01f);
+        if (_sampleInput.Evaluate("ZoomOut") > 0.0f) camera.SetZoom(camera.Zoom * 0.99f);
+    }
+
+    protected override void Stop()
+    {
+        _sampleInput?.Dispose();
+        _sampleInput = null;
+        base.Stop();
     }
 
     private static Rect GetTileContentBounds(TmxFile2D tmx)

@@ -31,6 +31,7 @@ internal static class Urho2DParticleProgram
 /// <summary>Demonstrates PEX particle effects in a 2D scene.</summary>
 public sealed class Urho2DParticle : Application
 {
+    private SampleInputMap? _sampleInput;
     private Node? _particleNode;
     private readonly Node?[] _ribbonEmitters = new Node?[3];
     private Camera? _camera;
@@ -55,6 +56,7 @@ public sealed class Urho2DParticle : Application
 
     protected override void Start()
     {
+        _sampleInput = new SampleInputMap();
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
@@ -95,7 +97,7 @@ public sealed class Urho2DParticle : Application
 
     protected override void Update(float timeStep)
     {
-        if (Input.ExitRequested || Input.GetKeyPress(Key.Escape)) { Exit(); return; }
+        if (Input.ExitRequested || _sampleInput!.Pressed("Exit")) { Exit(); return; }
         _sceneTime += timeStep;
         for (var i = 0; i < _ribbonEmitters.Length; ++i)
         {
@@ -110,6 +112,13 @@ public sealed class Urho2DParticle : Application
                 mouse.Y / (float)Graphics.Height, 10.0f));
             _particleNode.SetPosition(world);
         }
+    }
+
+    protected override void Stop()
+    {
+        _sampleInput?.Dispose();
+        _sampleInput = null;
+        base.Stop();
     }
 
     private static ParticleEffect2D CreateLightEffect(ParticleEffect2D source, string name, Color color)

@@ -26,6 +26,7 @@ internal static class Urho2DStretchableSpriteProgram
 /// <summary>Demonstrates nine-slice stretchable sprites.</summary>
 public sealed class Urho2DStretchableSprite : Application
 {
+    private SampleInputMap? _sampleInput;
     private Node? _referenceNode;
     private Node? _stretchNode;
     private float _elapsed;
@@ -47,6 +48,7 @@ public sealed class Urho2DStretchableSprite : Application
 
     protected override void Start()
     {
+        _sampleInput = new SampleInputMap();
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
@@ -74,11 +76,18 @@ public sealed class Urho2DStretchableSprite : Application
 
     protected override void Update(float timeStep)
     {
-        if (Input.ExitRequested || Input.GetKeyPress(Key.Escape)) { Exit(); return; }
+        if (Input.ExitRequested || _sampleInput!.Pressed("Exit")) { Exit(); return; }
         _elapsed += timeStep;
         var scale = new Vector2f(1.0f + (MathF.Sin(_elapsed) + 1.0f) * 0.75f,
             1.0f + (MathF.Cos(_elapsed * 0.7f) + 1.0f) * 0.5f);
         _stretchNode?.SetScale2D(scale);
         _referenceNode?.SetRotation2D(MathF.Sin(_elapsed * 0.5f) * 15.0f);
+    }
+
+    protected override void Stop()
+    {
+        _sampleInput?.Dispose();
+        _sampleInput = null;
+        base.Stop();
     }
 }
