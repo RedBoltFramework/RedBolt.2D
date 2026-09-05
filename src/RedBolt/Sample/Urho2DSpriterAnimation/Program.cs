@@ -135,18 +135,10 @@ public sealed class Urho2DSpriterAnimation : Application
         if (ImGui.Begin("Spriter Animation"u8, ref windowOpen,
                 ImGuiWindowFlags.ImGuiWindowFlagsNoResize | ImGuiWindowFlags.ImGuiWindowFlagsNoSavedSettings))
         {
-            for (var i = 0; i < 3; ++i)
-            {
-                ImGui.Image(_controlPrompts![i], PromptIconSize);
-                ImGui.SameLine();
-            }
-            DrawPrompt(_controlPrompts![3], "Move camera"u8);
-            ImGui.Image(_controlPrompts[4], PromptIconSize);
-            ImGui.SameLine();
-            DrawPrompt(_controlPrompts[5], "Zoom"u8);
-            ImGui.Image(_controlPrompts[6], PromptIconSize);
-            ImGui.SameLine();
-            DrawPrompt(_controlPrompts[7], "Next animation"u8);
+            DrawPrompt(SampleInputMap.GetMovementPrompt(), "Move camera"u8);
+            DrawPrompt(SampleInputMap.GetActionPrompt(_controlPrompts![4], ControllerButton.RightShoulder),
+                "Zoom"u8);
+            DrawPrompt(SampleInputMap.GetActionPrompt(_controlPrompts[6], ControllerButton.A), "Next animation"u8);
         }
         ImGui.End();
     }

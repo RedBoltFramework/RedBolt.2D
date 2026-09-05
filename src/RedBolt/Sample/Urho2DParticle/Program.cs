@@ -57,6 +57,10 @@ public sealed class Urho2DParticle : Application
     protected override void Start()
     {
         _sampleInput = new SampleInputMap();
+        _sampleInput.Map.MapControllerAxis("GuideLeft", ControllerAxis.LeftX, 0.0f, -1.0f);
+        _sampleInput.Map.MapControllerAxis("GuideRight", ControllerAxis.LeftX, 0.0f, 1.0f);
+        _sampleInput.Map.MapControllerAxis("GuideUp", ControllerAxis.LeftY, 0.0f, -1.0f);
+        _sampleInput.Map.MapControllerAxis("GuideDown", ControllerAxis.LeftY, 0.0f, 1.0f);
         Scene2D.RegisterUrho2DLibrary(Context);
         var scene = new Scene();
         scene.CreateComponent<Octree>();
@@ -107,10 +111,21 @@ public sealed class Urho2DParticle : Application
 
         if (_particleNode is not null && _camera is not null && Graphics.Width != 0 && Graphics.Height != 0)
         {
-            var mouse = Input.GetMousePosition();
-            var world = _camera.ScreenToWorldPoint(new Vector3f(mouse.X / (float)Graphics.Width,
-                mouse.Y / (float)Graphics.Height, 10.0f));
-            _particleNode.SetPosition(world);
+            if (Input.ActiveInputDevice == InputDeviceType.Joystick)
+            {
+                var position = _particleNode.GetPosition2D();
+                position += new Vector2f(
+                    _sampleInput.Evaluate("GuideRight") - _sampleInput.Evaluate("GuideLeft"),
+                    _sampleInput.Evaluate("GuideUp") - _sampleInput.Evaluate("GuideDown")) * (4.0f * timeStep);
+                _particleNode.SetPosition2D(position);
+            }
+            else
+            {
+                var pointer = Input.GetMousePosition();
+                var world = _camera.ScreenToWorldPoint(new Vector3f(pointer.X / (float)Graphics.Width,
+                    pointer.Y / (float)Graphics.Height, 10.0f));
+                _particleNode.SetPosition(world);
+            }
         }
     }
 
@@ -171,7 +186,13 @@ public sealed class Urho2DParticle : Application
             ImGui.TextUnformatted("Layered 2D particle trails in motion"u8);
             if (_pointerPrompt is not null)
             {
-                ImGui.Image(_pointerPrompt, PromptIconSize);
+                ImGui.Image(Input.ActiveInputDevice switch
+                {
+                    InputDeviceType.Touch => Resources.Get<Texture2D>(
+                        "ThirdParty/KenneyInputPrompts/touch_swipe_move.png"),
+                    InputDeviceType.Joystick => SampleInputMap.GetControllerPrompt(ControllerButton.LeftStick),
+                    _ => _pointerPrompt
+                }, PromptIconSize);
                 ImGui.SameLine();
                 Widgets.AlignTextToLastItem();
                 ImGui.TextUnformatted("Guide the golden light"u8);
