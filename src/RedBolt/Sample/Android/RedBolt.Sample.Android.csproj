@@ -16,6 +16,7 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
     <!-- <redbolt-generated name="android-project-items"> -->
     <Compile Include="Program.cs" />
     <ProjectReference Include="../../2D/RedBolt.2D.csproj" />
+    <ProjectReference Include="../../../../../RedBolt/src/RedBolt/DearImGui/RedBolt.DearImGui.csproj" />
     <Compile Include="../Urho2DSprite/**/*.cs" Link="Samples/RedBolt2D/Urho2DSprite/%(RecursiveDir)%(Filename)%(Extension)" />
     <Compile Include="../Urho2DParticle/**/*.cs" Link="Samples/RedBolt2D/Urho2DParticle/%(RecursiveDir)%(Filename)%(Extension)" />
     <Compile Include="../Urho2DSpriterAnimation/**/*.cs" Link="Samples/RedBolt2D/Urho2DSpriterAnimation/%(RecursiveDir)%(Filename)%(Extension)" />

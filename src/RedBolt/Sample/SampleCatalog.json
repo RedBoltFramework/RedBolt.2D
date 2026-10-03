@@ -4,7 +4,11 @@
   "web": true,
   "android": true,
   "projectReferences": [
-    "src/RedBolt/2D/RedBolt.2D.csproj"
+    "src/RedBolt/2D/RedBolt.2D.csproj",
+    "../RedBolt/src/RedBolt/DearImGui/RedBolt.DearImGui.csproj"
+  ],
+  "webPInvokeModules": [
+    "RedBolt.Native.DearImGui"
   ],
   "coreData": [
     "bin/CoreData.2D/**/*"
