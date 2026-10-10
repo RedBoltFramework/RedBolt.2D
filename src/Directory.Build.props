@@ -7,8 +7,8 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
 <Project>
   <!--
     Module project evaluation. Declares the module identity that the core's external-module build
-    logic keys off (RedBoltExternalModule*), notes this module is managed-only (no native component)
-    and where its desktop resource data lives, then chains into the core module props.
+    logic keys off (RedBoltExternalModule*), notes this module is managed-only (no native component),
+    then chains into the core module props.
   -->
   <PropertyGroup>
     <RedBolt2DRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..'))</RedBolt2DRoot>
@@ -16,8 +16,6 @@ For a copy, see <https://opensource.org/licenses/MIT> or the accompanying LICENS
     <RedBoltExternalModuleRoot>$(RedBolt2DRoot)</RedBoltExternalModuleRoot>
     <RedBoltExternalModuleName>RedBolt.2D</RedBoltExternalModuleName>
     <RedBoltExternalHasNative>false</RedBoltExternalHasNative>
-    <RedBoltExternalDesktopResourceRoot>$(RedBolt2DRoot)</RedBoltExternalDesktopResourceRoot>
-    <RedBoltExternalDesktopResourceName>2D</RedBoltExternalDesktopResourceName>
   </PropertyGroup>
   <Import Project="$(RedBoltRoot)/eng/RedBolt.ModuleBuild/Directory.Build.props" />
 </Project>
